@@ -17,12 +17,7 @@ public class Obstacles : Collectable
 
     public override void Contact(GameObject target)
     {
-        GameManager.Instance.PizzaSpawn(-value);
 
-        if (GameManager.Instance.pizzaList.Count <= 0 & value > 0)
-        {
-            GameBase.FailGame.Invoke();
-        }
     }
     
     public override void Effect(Vector3 pos = new Vector3())
