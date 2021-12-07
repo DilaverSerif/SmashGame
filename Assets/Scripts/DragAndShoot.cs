@@ -15,6 +15,8 @@ public class DragAndShoot : MonoBehaviour {
     private bool shot = false;
     private Transform player;
 
+    [Range(0.1f, 1f)]
+    public float Sensitivty = 1;
 
     private void Start()
     {
@@ -44,8 +46,8 @@ public class DragAndShoot : MonoBehaviour {
         Shoot(Direction());
     }
 
-    Vector3 Direction() => Reverse ? mousePressDown - mouseRelease : mouseRelease - mousePressDown;
-    Vector3 ForceInit() => Reverse ? (mousePressDown - Input.mousePosition) : (Input.mousePosition - mousePressDown);
+    Vector3 Direction() => Reverse ? (mousePressDown - mouseRelease) * Sensitivty : (mouseRelease - mousePressDown) * Sensitivty;
+    Vector3 ForceInit() => Reverse ? (mousePressDown - Input.mousePosition) * Sensitivty : (Input.mousePosition - mousePressDown) * Sensitivty;
 
     async void Shoot(Vector3 force) {
         if (shot | !play) 
