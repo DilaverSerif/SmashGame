@@ -13,6 +13,7 @@ public class DragAndShoot : MonoBehaviour {
     private Rigidbody rb;
 
     private bool shot = false;
+    private bool play;
     private Transform player;
 
     [Range(0.1f, 1f)]
@@ -24,27 +25,46 @@ public class DragAndShoot : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
     }
 
-
-    private void OnMouseDown() {
-        mousePressDown = Input.mousePosition;
-    }
-
-    private bool play;
-    private void OnMouseDrag() {
-        if (!play) return;
+    private void Update() {
+        if (Input.GetMouseButtonDown(0)) {
+            mousePressDown = Input.mousePosition;
+        }
+        if (Input.GetMouseButton(0)) {
+            if (!play) return;
         
-        Vector3 forceInit = ForceInit();
-        Vector3 forceV = (new Vector3(forceInit.x, forceInit.y, forceInit.y) * ForceMulti);
-        if (!shot) {
-            DrawTrajectory.instance.UpdateTrajectory(forceV, rb, transform.position);
+            Vector3 forceInit = ForceInit();
+            Vector3 forceV = (new Vector3(forceInit.x, forceInit.y, forceInit.y) * ForceMulti);
+            if (!shot) {
+                DrawTrajectory.instance.UpdateTrajectory(forceV, rb, transform.position);
+            }
+        }
+        if (Input.GetMouseButtonUp(0)) {
+            DrawTrajectory.instance.HideLine();
+            mouseRelease = Input.mousePosition;
+            Shoot(Direction());
         }
     }
 
-    private void OnMouseUp() {
-        DrawTrajectory.instance.HideLine();
-        mouseRelease = Input.mousePosition;
-        Shoot(Direction());
-    }
+
+    // private void OnMouseDown() {
+    //     mousePressDown = Input.mousePosition;
+    // }
+    //
+    // private void OnMouseDrag() {
+    //     if (!play) return;
+    //     
+    //     Vector3 forceInit = ForceInit();
+    //     Vector3 forceV = (new Vector3(forceInit.x, forceInit.y, forceInit.y) * ForceMulti);
+    //     if (!shot) {
+    //         DrawTrajectory.instance.UpdateTrajectory(forceV, rb, transform.position);
+    //     }
+    // }
+    //
+    // private void OnMouseUp() {
+    //     DrawTrajectory.instance.HideLine();
+    //     mouseRelease = Input.mousePosition;
+    //     Shoot(Direction());
+    // }
 
     Vector3 Direction() => Reverse ? (mousePressDown - mouseRelease) * Sensitivty : (mouseRelease - mousePressDown) * Sensitivty;
     Vector3 ForceInit() => Reverse ? (mousePressDown - Input.mousePosition) * Sensitivty : (Input.mousePosition - mousePressDown) * Sensitivty;
