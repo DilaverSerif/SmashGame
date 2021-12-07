@@ -35,13 +35,15 @@ public class GameBase : CanSave
     public SoundSystem SoundSystem;
     public ScoreSystem ScoreSystem;
     public MenuSystem MenuSystem;
-    public ComboSystem ComboSystem;
+    public ComboSystem  ComboSystem;
     public SpawnObjectSystem SpawnObjectSystem;
     public SpawnerSystem SpawnerSystem;
     //public MenuSystem.WarningText WarningText;
     public TestBuild TestBuild;
     public LevelSystem LevelSystem;
     public CameraSystem CameraSystem;
+    public NextLevelMeu nextLevelMeu;
+    public FailMenu failMenu;
     
     [Header("Spawner for Options")] public List<SpawnObjects> SpawnObjects = new List<SpawnObjects>();
     public int[] listSize;
@@ -74,7 +76,7 @@ public class GameBase : CanSave
         }
     
         level = 1;
-        SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
+        //SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
 
         ScoreSystem = gameObject.AddComponent<ScoreSystem>();
         MusicSystem = gameObject.AddComponent<MusicSystem>();
@@ -87,8 +89,13 @@ public class GameBase : CanSave
         //WarningText = gameObject.AddComponent<MenuSystem.WarningText>();
         LevelSystem = gameObject.AddComponent<LevelSystem>();
         CameraSystem = gameObject.AddComponent<CameraSystem>();
-
+        failMenu = FindObjectOfType<FailMenu>();
+        nextLevelMeu = FindObjectOfType<NextLevelMeu>();
+        
         if (Test) TestBuild = gameObject.AddComponent<TestBuild>();
+        
+        failMenu.gameObject.SetActive(false);
+        nextLevelMeu.gameObject.SetActive(false);
     }
     
     public override void FileSave()
@@ -593,13 +600,13 @@ public class MusicSystem : MonoBehaviour
     private void OnEnable()
     {
         GameBase.SuccesefulFinishGame.AddListener(()=> LowerAnim(0));
-        GameBase.FailGame.AddListener(()=>LowerAnim(0));
+        //GameBase.FailGame.AddListener(()=>LowerAnim(0));
     }
 
     private void OnDisable()
     {
         GameBase.SuccesefulFinishGame.RemoveListener(()=> LowerAnim(0));
-        GameBase.FailGame.RemoveListener(()=>LowerAnim(0));
+        //GameGameBase.FailGame.RemoveListener(()=>LowerAnim(0));
     }
 
     public void OpenCloseMusic(bool value)
@@ -1018,11 +1025,12 @@ public class LevelSystem: MonoBehaviour
 
 public class CameraSystem: MonoBehaviour
 {
-    private CinemachineStateDrivenCamera mainCamera;
+    private CinemachineVirtualCamera mainCamera;
+    public static Action<Transform> ChangeFocus;
 
     private void Awake()
     {
-        mainCamera = FindObjectOfType<CinemachineStateDrivenCamera>();
+        mainCamera = FindObjectOfType<CinemachineVirtualCamera>();
     }
 
     private void DontFollow()
@@ -1030,14 +1038,22 @@ public class CameraSystem: MonoBehaviour
         mainCamera.m_Follow = null;
         mainCamera.LookAt = null;
     }
+
+    private void ChangerFocus(Transform focus)
+    {
+        //mainCamera.m_Follow = focus;
+        mainCamera.LookAt = focus;
+    }
     
     private void OnEnable()
     {
+        ChangeFocus += ChangerFocus;
         GameBase.FailGame.AddListener(DontFollow);
     }
 
     private void OnDisable()
     {
+        ChangeFocus -= ChangerFocus;
         GameBase.FailGame.RemoveListener(DontFollow);
     }
 }
@@ -1064,26 +1080,13 @@ public class General
 
 public enum Particles
 {
-    StarExplosion,
-    DollarbillBlast,
-    Crash,
-    DustDirtyPoof,
-    EmojiCool,
-    EmojiCry
+    smoke
 }
 
 public enum Sounds //Ses dosyasiyla enum ismi ayni olmak zorunda (kücük büyük harf gereksiz)
 {
-    loot,
-    GateLoot,
-    FailGateLoot,
-    MetalCrash,
-    PizzaThrow,
     Win,
     Fail,
-    Taxi,
-    Motor,
-    Smash
 }
 
 public enum GameObjects

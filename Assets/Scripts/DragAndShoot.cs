@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -12,9 +13,12 @@ public class DragAndShoot : MonoBehaviour {
     private Rigidbody rb;
 
     private bool shot = false;
+    private Transform player;
 
 
-    private void Start() {
+    private void Start()
+    {
+        player = FindObjectOfType<Player>().transform;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -23,7 +27,10 @@ public class DragAndShoot : MonoBehaviour {
         mousePressDown = Input.mousePosition;
     }
 
+    private bool play;
     private void OnMouseDrag() {
+        if (!play) return;
+        
         Vector3 forceInit = ForceInit();
         Vector3 forceV = (new Vector3(forceInit.x, forceInit.y, forceInit.y) * ForceMulti);
         if (!shot) {
@@ -41,22 +48,46 @@ public class DragAndShoot : MonoBehaviour {
     Vector3 ForceInit() => Reverse ? (mousePressDown - Input.mousePosition) : (Input.mousePosition - mousePressDown);
 
     async void Shoot(Vector3 force) {
-        if (shot) 
+        if (shot | !play) 
             return;
         rb.isKinematic = false;
         Player.SutGol.Invoke();
         await Task.Delay(500);
         rb.AddForce(new Vector3(force.x, force.y, force.y)* this.ForceMulti);
         shot = true;
-        
+        CameraSystem.ChangeFocus(transform);
         //Silinebilir
         await Task.Delay(3000);
+        CameraSystem.ChangeFocus(player);
+        
         if(!Application.isPlaying) return;
         rb.velocity = Vector3.zero;
         transform.position = new Vector3(0, -0.5f, 0);
         shot = false;
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
+    }
+
+    private void OnEnable()
+    {
+        GameBase.StartGame.AddListener(Play);
+        GameBase.FailGame.AddListener(GameOver);
+    }
+
+    private void OnDisable()
+    {
+        GameBase.StartGame.RemoveListener(Play);
+        GameBase.FailGame.RemoveListener(GameOver);
+    }
+
+    private void Play()
+    {
+        play = true;
+    }
+
+    private void GameOver()
+    {
+        play = false;
     }
 
 }

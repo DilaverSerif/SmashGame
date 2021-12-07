@@ -50,8 +50,8 @@ public class DrawTrajectory : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(_linePoints[i - 1], newPointInLine - _linePoints[i - 1], out hit, (newPointInLine - _linePoints[i - 1]).magnitude,hedefMask)) {
                 _linePoints.Add(hit.point);
-                _lineRenderer.startColor = Color.green;
-                _lineRenderer.endColor = Color.green;
+                _lineRenderer.startColor = Color.blue;
+                _lineRenderer.endColor = Color.blue;
                 break;
                 //Top denk gelecekse
             }
