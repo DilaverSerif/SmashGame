@@ -17,7 +17,7 @@ public class DrawTrajectory : MonoBehaviour {
     [SerializeField] private int _linePointCount;
 
     private List<Vector3> _linePoints = new List<Vector3>();
-
+    [SerializeField] private LayerMask hedefMask;
     private void Awake() {
         if (instance == null) instance = this;
         else Destroy(this.gameObject);
@@ -48,12 +48,12 @@ public class DrawTrajectory : MonoBehaviour {
             Vector3 newPointInLine = -newMovementVector + startPos;
 
             RaycastHit hit;
-            if (Physics.Raycast(_linePoints[i - 1], newPointInLine - _linePoints[i - 1], out hit, (newPointInLine - _linePoints[i - 1]).magnitude)) {
+            if (Physics.Raycast(_linePoints[i - 1], newPointInLine - _linePoints[i - 1], out hit, (newPointInLine - _linePoints[i - 1]).magnitude,hedefMask)) {
                 _linePoints.Add(hit.point);
-                //Top denk gelecekse
                 _lineRenderer.startColor = Color.green;
                 _lineRenderer.endColor = Color.green;
                 break;
+                //Top denk gelecekse
             }
             else {
                 

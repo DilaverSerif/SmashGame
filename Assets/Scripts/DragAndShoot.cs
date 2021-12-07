@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -46,6 +43,9 @@ public class DragAndShoot : MonoBehaviour {
     async void Shoot(Vector3 force) {
         if (shot) 
             return;
+        rb.isKinematic = false;
+        Player.SutGol.Invoke();
+        await Task.Delay(500);
         rb.AddForce(new Vector3(force.x, force.y, force.y)* this.ForceMulti);
         shot = true;
         
@@ -53,10 +53,10 @@ public class DragAndShoot : MonoBehaviour {
         await Task.Delay(3000);
         if(!Application.isPlaying) return;
         rb.velocity = Vector3.zero;
-        transform.position = Vector3.zero;
+        transform.position = new Vector3(0, -0.5f, 0);
         shot = false;
-        await Task.Delay(1000);
         rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
     }
 
 }
