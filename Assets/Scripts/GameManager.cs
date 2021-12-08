@@ -65,13 +65,13 @@ public class GameManager : MonoBehaviour
     }
 
     async void vaseCountDown() {
-        startCount--;
-        Debug.Log(startCount);
-        if (startCount <= 0) {
-            canCount = false;
-            await Task.Delay(1000);
-            GameBase.SuccesefulFinishGame.Invoke();
-        }
+        // startCount--;
+        // Debug.Log(startCount);
+        // if (startCount <= 0) {
+        //     canCount = false;
+        //     await Task.Delay(1000);
+        //     GameBase.SuccesefulFinishGame.Invoke();
+        // }
     }
 
     private void OnEnable()

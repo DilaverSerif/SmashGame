@@ -9,6 +9,11 @@ public class CanBrekable : MonoBehaviour {
     private Outline outline;
     private void Start() {
         outline = GetComponent<Outline>();
+        // if (outline == null) {
+        //     outline = gameObject.AddComponent<Outline>();
+        //     outline.OutlineColor = Color.red;
+        //     outline.OutlineWidth = 4;
+        // }
         DOTween.To(() => outline.OutlineWidth, x => outline.OutlineWidth = x, 1, 2f).SetLoops(-1, LoopType.Yoyo);
         // float myFloat = 1;
         // DOTween.To(()=> myFloat, x=> myFloat = x, 52, 1);
