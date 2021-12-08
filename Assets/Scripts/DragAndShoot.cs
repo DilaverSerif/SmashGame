@@ -19,10 +19,13 @@ public class DragAndShoot : MonoBehaviour {
     [Range(0.1f, 1f)]
     public float Sensitivty = 1;
 
+    private Vector3 spawnPos;
+
     private void Start()
     {
         player = FindObjectOfType<Player>().transform;
         rb = GetComponent<Rigidbody>();
+        spawnPos = transform.position;
     }
 
     private void Update() {
@@ -84,7 +87,7 @@ public class DragAndShoot : MonoBehaviour {
         
         if(!Application.isPlaying) return;
         rb.velocity = Vector3.zero;
-        transform.position = new Vector3(0, -0.5f, 0);
+        transform.position = spawnPos;
         shot = false;
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
