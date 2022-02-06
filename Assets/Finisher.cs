@@ -23,6 +23,7 @@ public class Finisher : MonoBehaviour
     {
         foreach (Transform t in transform)
         {
+            t.gameObject.layer = 3;
             nesneler.Add(t);
         }
     }

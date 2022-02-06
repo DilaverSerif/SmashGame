@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class CanBrekable : MonoBehaviour
 {
+
+    private void Awake() {
+        //boxcollider is trigger
+        GetComponent<BoxCollider>().isTrigger = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         var check = FindObjectOfType<DragAndShoot>();
