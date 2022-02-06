@@ -23,7 +23,7 @@ public class DragAndShoot : MonoBehaviour {
 
     private void Start()
     {
-        player = FindObjectOfType<Player>().transform;
+        player = FindObjectOfType<PlayerMain>().transform;
         rb = GetComponent<Rigidbody>();
         spawnPos = transform.position;
     }
@@ -48,27 +48,6 @@ public class DragAndShoot : MonoBehaviour {
         }
     }
 
-
-    // private void OnMouseDown() {
-    //     mousePressDown = Input.mousePosition;
-    // }
-    //
-    // private void OnMouseDrag() {
-    //     if (!play) return;
-    //     
-    //     Vector3 forceInit = ForceInit();
-    //     Vector3 forceV = (new Vector3(forceInit.x, forceInit.y, forceInit.y) * ForceMulti);
-    //     if (!shot) {
-    //         DrawTrajectory.instance.UpdateTrajectory(forceV, rb, transform.position);
-    //     }
-    // }
-    //
-    // private void OnMouseUp() {
-    //     DrawTrajectory.instance.HideLine();
-    //     mouseRelease = Input.mousePosition;
-    //     Shoot(Direction());
-    // }
-
     Vector3 Direction() => Reverse ? (mousePressDown - mouseRelease) * Sensitivty : (mouseRelease - mousePressDown) * Sensitivty;
     Vector3 ForceInit() => Reverse ? (mousePressDown - Input.mousePosition) * Sensitivty : (Input.mousePosition - mousePressDown) * Sensitivty;
 
@@ -76,7 +55,10 @@ public class DragAndShoot : MonoBehaviour {
         if (shot | !play) 
             return;
         rb.isKinematic = false;
-        Player.SutGol.Invoke();
+        
+        PlayerMain.PlayBodyAnimation?.Invoke("Kick");
+        // UnlockablePlayer.SutGol.Invoke();
+        
         await Task.Delay(500);
         rb.AddForce(new Vector3(force.x, force.y, force.y)* this.ForceMulti);
         shot = true;

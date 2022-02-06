@@ -6,7 +6,7 @@ public class Obstacles : Collectable
     
     protected override bool condition(GameObject contant)
     {
-        if (contant.GetComponent<Player>() != null & !oneTime)
+        if (contant.GetComponent<UnlockablePlayer>() != null & !oneTime)
         {
             oneTime = true;
             return true;
