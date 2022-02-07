@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Unlockable {
     public string UnlockableName;
-    public bool IsUnlocked {
+    public bool Unlocked {
         get {
             return PlayerPrefs.GetInt(UnlockableName, 0) == 1;
         }
@@ -17,8 +17,8 @@ public class Unlockable {
 
     public int ID;
     
-    public int cost;
-    
+    public int Price;
+
     public GameObject PlayerBodyPrefab;
     
 }

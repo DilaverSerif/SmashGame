@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using random = UnityEngine.Random;
 public class PlayerMain : MonoBehaviour {
 
     public static Action<string> PlayBodyAnimation;
@@ -37,12 +38,34 @@ public class PlayerMain : MonoBehaviour {
         currentBody.transform.localRotation = Quaternion.identity;
     }
     
+    public void UnlockNextBody(int id) {
+        
+        int currentMoney = PlayerPrefs.GetInt("money", 0);
+        if (currentMoney >= UnlockablePlayers[id].Price) {
+            PlayerPrefs.SetInt("money", currentMoney - UnlockablePlayers[id].Price);
+            UnlockablePlayers[id].Unlocked = true;
+            CurrentPlayerBodyID = id;
+            Destroy(currentBody);
+            currentBody = Instantiate(CurrentPlayerBody.PlayerBodyPrefab, SpawnPos);
+            currentBody.transform.localPosition = Vector3.zero;
+            currentBody.transform.localRotation = Quaternion.identity;
+        }
+    }
+    
     public void ChangePlayerBody(int id) {
-        Destroy(currentBody);
-        currentBody = Instantiate(UnlockablePlayers[id].PlayerBodyPrefab, SpawnPos);
-        currentBody.transform.localPosition = Vector3.zero;
-        currentBody.transform.localRotation = Quaternion.identity;
-        CurrentPlayerBodyID = id;
+        if (id >= UnlockablePlayers.Length) {
+            id = 0;
+        }
+        if (id < 0) {
+            id = UnlockablePlayers.Length - 1;
+        }
+        if (UnlockablePlayers[id].Unlocked) {
+            CurrentPlayerBodyID = id;
+            Destroy(currentBody);
+            currentBody = Instantiate(CurrentPlayerBody.PlayerBodyPrefab, SpawnPos);
+            currentBody.transform.localPosition = Vector3.zero;
+            currentBody.transform.localRotation = Quaternion.identity;
+        }
     }
     
     public void PlayAnimation(string animationName) {

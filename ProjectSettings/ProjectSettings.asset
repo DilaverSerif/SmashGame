@@ -759,6 +759,8 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Analytics: 1
+    Purchasing: 1
     UNet: 1
   luminIcon:
     m_Name: 
