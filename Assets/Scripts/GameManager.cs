@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         GameBase.StartGame.Invoke();
 
         canCount = true;
-        Countdown();
+        StartCoroutine(Countdown());
         // while (sure != 0)
         // {
         //     sure -= 1;
@@ -52,14 +52,15 @@ public class GameManager : MonoBehaviour
         // GameBase.FailGame.Invoke();
     }
 
-    async void Countdown() {
+    IEnumerator Countdown() {
         
         while (sure != 0)
         {
             sure -= 1;
             text.text = sure.ToString();
-            await Task.Delay(1000);
-            if(!canCount) return;
+            yield return new WaitForSeconds(1f);
+            // await Task.Delay(1000);
+            if(!canCount) yield break;
         }
         GameBase.FailGame.Invoke();
     }

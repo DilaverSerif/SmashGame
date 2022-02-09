@@ -17,7 +17,7 @@ public class MinorSaveSystem : MonoBehaviour {
     }
 
     private void Start() {
-        LoadLevel(1);
+        LoadLevel(LastOpenedLevel);
     }
 
 
@@ -39,7 +39,7 @@ public class MinorSaveSystem : MonoBehaviour {
         if (GameEnded) {
             return Random.Range(1, Application.levelCount);
         }
-        return LastOpenedLevel;
+        return LastOpenedLevel + 1;
     }
     
     void OnLevelWasLoaded(int level) {
@@ -57,7 +57,19 @@ public class MinorSaveSystem : MonoBehaviour {
     
     //Test function to load a level
     public void LoadLevel(int level) {
-        SceneManager.LoadScene(level);
+        if(level > 0 && level < Application.levelCount) {
+            SceneManager.LoadScene(level);
+            OnLevelLoaded?.Invoke();
+        }
+        else {
+            GameEnded = true;
+            SceneManager.LoadScene(GetNextLevel());
+        }
+        // OnLevelLoaded?.Invoke();
+    }
+
+    public void LoadNextLevel() {
+        LoadLevel(GetNextLevel());
     }
     
     

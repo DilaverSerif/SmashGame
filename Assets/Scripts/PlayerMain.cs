@@ -2,8 +2,14 @@
 using UnityEngine;
 using random = UnityEngine.Random;
 public class PlayerMain : MonoBehaviour {
+    public static PlayerMain instance;
 
-    public static Action<string> PlayBodyAnimation;
+    private void Awake() {
+        if (instance == null) instance = this;
+        else Destroy(this.gameObject);
+    }
+    
+    // public static Action<string> PlayBodyAnimation;
 
     public Unlockable[] UnlockablePlayers;
     public int CurrentPlayerBodyID {
@@ -36,12 +42,12 @@ public class PlayerMain : MonoBehaviour {
         currentBody.transform.localPosition = Vector3.zero;
         currentBody.transform.localRotation = Quaternion.identity;
 
-        PlayBodyAnimation += PlayAnimation;
-        MinorSaveSystem.instance.OnLevelLoaded += OnNewLevelLoaded;
+        // PlayBodyAnimation += PlayAnimation;
+        // MinorSaveSystem.instance.OnLevelLoaded += OnNewLevelLoaded;
     }
 
-    void OnNewLevelLoaded() {
-        Transform t = FindObjectOfType<FormerPlayerSpawnPosition>().transform;
+    public void OnNewLevelLoaded(Transform t) {
+        // Transform t = FindObjectOfType<FormerPlayerSpawnPosition>().transform;
         transform.position = t.position;
         transform.rotation = t.rotation;
         transform.localScale = t.localScale;
@@ -96,7 +102,8 @@ public class PlayerMain : MonoBehaviour {
     }
 
     private void OnDisable() {
-        PlayBodyAnimation = null;
-        MinorSaveSystem.instance.OnLevelLoaded = null;
+        instance = null;
+        // PlayBodyAnimation = null;
+        // MinorSaveSystem.instance.OnLevelLoaded = null;
     }
 }

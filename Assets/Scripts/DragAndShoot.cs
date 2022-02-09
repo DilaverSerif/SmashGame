@@ -63,7 +63,8 @@ public class DragAndShoot : MonoBehaviour {
             return;
         rb.isKinematic = false;
         
-        PlayerMain.PlayBodyAnimation?.Invoke("Kick");
+        // PlayerMain.PlayBodyAnimation?.Invoke("Kick");
+        PlayerMain.instance.PlayAnimation("Kick");
         // FormerPlayerSpawnPosition.SutGol.Invoke();
         
         await Task.Delay(500);

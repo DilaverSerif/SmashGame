@@ -13,7 +13,8 @@ public class NextLevelMeu : MonoBehaviour
 
     private void Next()
     {
-        var a = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(a + 1);
+        // var a = SceneManager.GetActiveScene().buildIndex;
+        // SceneManager.LoadScene(a + 1);
+        MinorSaveSystem.instance.LoadNextLevel();
     }
 }
