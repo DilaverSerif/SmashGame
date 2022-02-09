@@ -7,12 +7,8 @@ using UnityEngine;
 public class Unlockable {
     public string UnlockableName;
     public bool Unlocked {
-        get {
-            return PlayerPrefs.GetInt(UnlockableName, 0) == 1;
-        }
-        set {
-            PlayerPrefs.SetInt(UnlockableName, value ? 1 : 0);
-        }
+        get => PlayerPrefs.GetInt(UnlockableName, 0) == 1;
+        set => PlayerPrefs.SetInt(UnlockableName, value ? 1 : 0);
     }
 
     public int ID;

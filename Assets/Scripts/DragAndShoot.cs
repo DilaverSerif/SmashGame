@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DragAndShoot : MonoBehaviour {
 
@@ -27,8 +28,14 @@ public class DragAndShoot : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         spawnPos = transform.position;
     }
+    
+    
+    
 
     private void Update() {
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return;
+        }
         if (Input.GetMouseButtonDown(0)) {
             mousePressDown = Input.mousePosition;
         }
@@ -57,7 +64,7 @@ public class DragAndShoot : MonoBehaviour {
         rb.isKinematic = false;
         
         PlayerMain.PlayBodyAnimation?.Invoke("Kick");
-        // UnlockablePlayer.SutGol.Invoke();
+        // FormerPlayerSpawnPosition.SutGol.Invoke();
         
         await Task.Delay(500);
         rb.AddForce(new Vector3(force.x, force.y, force.y)* this.ForceMulti);

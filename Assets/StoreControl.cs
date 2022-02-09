@@ -63,4 +63,8 @@ public class StoreControl : MonoBehaviour {
     public void UpdateMoneyText(int value) {
         moneyText.text = value.ToString();
     }
+
+    public void UpdateUI() {
+        UpdateMoneyText(GetPlayerMoney);
+    }
 }
