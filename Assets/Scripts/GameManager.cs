@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public TextMeshProUGUI text;
+    public Text text;
 
     public Action VaseCountdown;
     private int startCount;
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int sure;
     private IEnumerator Start() {
+
+        text = GameObject.FindGameObjectWithTag("Counter").GetComponent<Text>();
         startCount = FindObjectsOfType<CanBrekable>().Length - 1;
         VaseCountdown += vaseCountDown;
         text.text = "3";

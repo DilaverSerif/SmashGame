@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StoreControl : MonoBehaviour {
 
     public static StoreControl instance;
     public static string playerMoneyID = "money";
 
-    public TextMeshProUGUI moneyText;
+    public Text moneyText;
 
     public int GetPlayerMoney {
         get => PlayerPrefs.GetInt(playerMoneyID);
@@ -32,7 +33,7 @@ public class StoreControl : MonoBehaviour {
             PlayerPrefs.SetInt(playerMoneyID, 0);
         }
 
-        moneyText ??= transform.Find("PlayerCointxt").GetComponent<TextMeshProUGUI>();
+        moneyText ??= transform.Find("PlayerCointxt").GetComponent<Text>();
         moneyText.text = GetPlayerMoney.ToString();
 
     }

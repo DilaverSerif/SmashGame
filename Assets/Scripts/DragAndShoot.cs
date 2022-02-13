@@ -26,6 +26,7 @@ public class DragAndShoot : MonoBehaviour {
     {
         player = FindObjectOfType<PlayerMain>().transform;
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
         spawnPos = transform.position;
     }
     
