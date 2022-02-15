@@ -57,6 +57,8 @@ public class MinorSaveSystem : MonoBehaviour {
     
     //Test function to load a level
     public void LoadLevel(int level) {
+        
+
         if(level > 0 && level < Application.levelCount) {
             SceneManager.LoadScene(level);
             OnLevelLoaded?.Invoke();
@@ -68,7 +70,8 @@ public class MinorSaveSystem : MonoBehaviour {
         // OnLevelLoaded?.Invoke();
     }
 
-    public void LoadNextLevel() {
+    public  void LoadNextLevel() {
+
         LoadLevel(GetNextLevel());
     }
     

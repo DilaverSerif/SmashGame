@@ -58,6 +58,8 @@ public class Finisher : MonoBehaviour
 
         if (nesneler.Count == 0)
         {
+            ReklamScript.InsterstitialGoster();
+
             GameBase.SuccesefulFinishGame.Invoke();
         }
     }

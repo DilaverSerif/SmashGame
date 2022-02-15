@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int sure;
     private IEnumerator Start() {
+        ReklamScript.BannerGoster();
 
         text = GameObject.FindGameObjectWithTag("Counter").GetComponent<Text>();
         startCount = FindObjectsOfType<CanBrekable>().Length - 1;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
         GameBase.StartGame.Invoke();
 
         canCount = true;
-        StartCoroutine(Countdown());
+        StartCoroutine("Countdown");
         // while (sure != 0)
         // {
         //     sure -= 1;
@@ -91,6 +92,6 @@ public class GameManager : MonoBehaviour
 
     private void Win()
     {
-        StopCoroutine("Start");
+        StopCoroutine("Countdown");
     }
 }
