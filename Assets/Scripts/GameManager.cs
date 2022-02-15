@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public Text text;
+    private Text CoinText;
 
     public Action VaseCountdown;
     private int startCount;
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         text.text = "GO!";
         yield return new WaitForSeconds(0.55f);
-        text.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(0, -100, 0);
+        text.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(0, -300, 0);
         GameBase.StartGame.Invoke();
 
         canCount = true;

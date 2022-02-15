@@ -27,7 +27,7 @@ public class CanBrekable : MonoBehaviour {
             GameBase.Dilaver.ParticlePlaySystem.SetScale(Vector3.one * 2).PlayParticle(Particles.smoke,transform.position);
             Finisher.Check.Invoke(transform);
             GameManager.Instance.VaseCountdown?.Invoke();
-            StoreControl.instance.AddPlayerMoney(100);
+            StoreControl.instance.AddPlayerMoney(10);
             Destroy(gameObject);
         }
     }

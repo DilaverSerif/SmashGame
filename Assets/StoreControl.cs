@@ -34,7 +34,7 @@ public class StoreControl : MonoBehaviour {
         }
 
         moneyText ??= transform.Find("PlayerCointxt").GetComponent<Text>();
-        moneyText.text = GetPlayerMoney.ToString();
+        UpdateMoneyText(GetPlayerMoney);
 
     }
 
@@ -62,7 +62,7 @@ public class StoreControl : MonoBehaviour {
     }
 
     public void UpdateMoneyText(int value) {
-        moneyText.text = value.ToString();
+        moneyText.text = "COIN:"+ value.ToString();
     }
 
     public void UpdateUI() {
