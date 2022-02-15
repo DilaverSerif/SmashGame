@@ -1,14 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public TextMeshProUGUI text;
+    public Text text;
+
+    public Action VaseCountdown;
+    private int startCount;
+    private bool canCount = true;
+
 
     private void Awake()
     {
@@ -20,8 +27,11 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private int sure;
-    private IEnumerator Start()
-    {
+    private IEnumerator Start() {
+
+        text = GameObject.FindGameObjectWithTag("Counter").GetComponent<Text>();
+        startCount = FindObjectsOfType<CanBrekable>().Length - 1;
+        VaseCountdown += vaseCountDown;
         text.text = "3";
         yield return new WaitForSeconds(1f);
         text.text = "2";
@@ -33,14 +43,39 @@ public class GameManager : MonoBehaviour
         text.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(0, -100, 0);
         GameBase.StartGame.Invoke();
 
+        canCount = true;
+        StartCoroutine(Countdown());
+        // while (sure != 0)
+        // {
+        //     sure -= 1;
+        //     text.text = sure.ToString();
+        //     yield return new WaitForSeconds(1f);
+        // }
+        //
+        // GameBase.FailGame.Invoke();
+    }
+
+    IEnumerator Countdown() {
+        
         while (sure != 0)
         {
             sure -= 1;
             text.text = sure.ToString();
             yield return new WaitForSeconds(1f);
+            // await Task.Delay(1000);
+            if(!canCount) yield break;
         }
-        
         GameBase.FailGame.Invoke();
+    }
+
+    async void vaseCountDown() {
+        // startCount--;
+        // Debug.Log(startCount);
+        // if (startCount <= 0) {
+        //     canCount = false;
+        //     await Task.Delay(1000);
+        //     GameBase.SuccesefulFinishGame.Invoke();
+        // }
     }
 
     private void OnEnable()
@@ -51,6 +86,7 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         GameBase.SuccesefulFinishGame.RemoveListener(Win);
+        VaseCountdown = null;
     }
 
     private void Win()

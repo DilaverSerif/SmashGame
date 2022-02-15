@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DragAndShoot : MonoBehaviour {
 
@@ -13,6 +14,7 @@ public class DragAndShoot : MonoBehaviour {
     private Rigidbody rb;
 
     private bool shot = false;
+    private bool play;
     private Transform player;
 
     [Range(0.1f, 1f)]
@@ -22,33 +24,36 @@ public class DragAndShoot : MonoBehaviour {
 
     private void Start()
     {
-        player = FindObjectOfType<Player>().transform;
-
+        player = FindObjectOfType<PlayerMain>().transform;
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         spawnPos = transform.position;
     }
+    
+    
+    
 
-
-    private void OnMouseDown() {
-        mousePressDown = Input.mousePosition;
-    }
-
-    private bool play;
-    private void OnMouseDrag() {
-        if (!play) return;
-        
-        Vector3 forceInit = ForceInit();
-        Vector3 forceV = (new Vector3(forceInit.x, forceInit.y, forceInit.y) * ForceMulti);
-        if (!shot) {
-            DrawTrajectory.instance.UpdateTrajectory(forceV, rb, transform.position);
+    private void Update() {
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return;
         }
-    }
-
-    private void OnMouseUp() {
-        DrawTrajectory.instance.HideLine();
-        mouseRelease = Input.mousePosition;
-        Shoot(Direction());
+        if (Input.GetMouseButtonDown(0)) {
+            mousePressDown = Input.mousePosition;
+        }
+        if (Input.GetMouseButton(0)) {
+            if (!play) return;
+        
+            Vector3 forceInit = ForceInit();
+            Vector3 forceV = (new Vector3(forceInit.x, forceInit.y, forceInit.y) * ForceMulti);
+            if (!shot) {
+                DrawTrajectory.instance.UpdateTrajectory(forceV, rb, transform.position);
+            }
+        }
+        if (Input.GetMouseButtonUp(0)) {
+            DrawTrajectory.instance.HideLine();
+            mouseRelease = Input.mousePosition;
+            Shoot(Direction());
+        }
     }
 
     Vector3 Direction() => Reverse ? (mousePressDown - mouseRelease) * Sensitivty : (mouseRelease - mousePressDown) * Sensitivty;
@@ -58,7 +63,11 @@ public class DragAndShoot : MonoBehaviour {
         if (shot | !play) 
             return;
         rb.isKinematic = false;
-        Player.SutGol.Invoke();
+        
+        // PlayerMain.PlayBodyAnimation?.Invoke("Kick");
+        PlayerMain.instance.PlayAnimation("Kick");
+        // FormerPlayerSpawnPosition.SutGol.Invoke();
+        
         await Task.Delay(500);
         rb.AddForce(new Vector3(force.x, force.y, force.y)* this.ForceMulti);
         shot = true;

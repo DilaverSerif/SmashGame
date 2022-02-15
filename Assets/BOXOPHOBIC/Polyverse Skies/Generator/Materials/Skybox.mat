@@ -69,8 +69,8 @@ Material:
     - _EnableStarsRotation: 0
     - _EnableStarsTwinkling: 0
     - _EnableSun: 0
-    - _EquatorHeight: 0.756
-    - _EquatorSmoothness: 0.5
+    - _EquatorHeight: 0.374
+    - _EquatorSmoothness: 0.164
     - _FogCat: 1
     - _FogFill: 0
     - _FogHeight: 0
@@ -103,3 +103,4 @@ Material:
     - _MoonColor: {r: 1, g: 1, b: 1, a: 1}
     - _SkyColor: {r: 0.11294055, g: 0.49477538, b: 0.8867924, a: 1}
     - _SunColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

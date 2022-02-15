@@ -23,9 +23,33 @@ public class Finisher : MonoBehaviour
     {
         foreach (Transform t in transform)
         {
-            t.gameObject.layer = 3;
             nesneler.Add(t);
+            t.gameObject.layer = 3;
+
+            if (t.TryGetComponent<Collider>(out var rb))
+            {
+                rb.isTrigger = true;
+            }
+            else
+            {
+                rb = t.gameObject.AddComponent<BoxCollider>();
+                rb.isTrigger = true;
+            }
+
+            if (!t.TryGetComponent<CanBrekable>(out var can))
+            {
+                can = t.gameObject.AddComponent<CanBrekable>();
+                var outline = t.gameObject.AddComponent<Outline>();
+                outline.OutlineColor = Color.red;
+                outline.OutlineWidth = 3;
+            }
+
+
+
+
+
         }
+
     }
 
     private void CheckThis(Transform tt)
