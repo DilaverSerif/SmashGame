@@ -28,6 +28,8 @@ public class DragAndShoot : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         spawnPos = transform.position;
+        
+        PlayerMain.instance.SetupBall(transform);
     }
     
     
