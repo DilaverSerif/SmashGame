@@ -4393,9 +4393,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc0f0ebefdddb94b941eb556cd49c93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bannerKimligi: 'ca-app-pub-3940256099942544/6300978111 '
-  interstitialKimligi: 'ca-app-pub-3940256099942544/1033173712 '
-  rewardedVideoKimligi: 'ca-app-pub-3940256099942544/5224354917 '
+  bannerKimligi: ca-app-pub-1779482546212960/1238760596
+  interstitialKimligi: ca-app-pub-1779482546212960/3567526567
+  rewardedVideoKimligi: 
   testModu: 0
   testDeviceID: 
   cocuklaraYonelikReklamGoster: 0
