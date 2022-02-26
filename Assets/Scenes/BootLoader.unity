@@ -792,6 +792,7 @@ GameObject:
   - component: {fileID: 714172060}
   - component: {fileID: 714172059}
   - component: {fileID: 714172058}
+  - component: {fileID: 714172061}
   m_Layer: 5
   m_Name: 25kCoin
   m_TagString: Untagged
@@ -913,6 +914,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714172056}
   m_CullTransparentMesh: 1
+--- !u!114 &714172061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714172056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a5f511b0d8142cba0aeb92d0b264c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productId: coin2
+  buttonType: 0
+  consumePurchase: 1
+  onPurchaseComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2021976877}
+        m_TargetAssemblyTypeName: StoreControl, Assembly-CSharp
+        m_MethodName: AddPlayerMoney
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 250
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPurchaseFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  titleText: {fileID: 0}
+  descriptionText: {fileID: 0}
+  priceText: {fileID: 0}
 --- !u!1 &733033174
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,7 +1707,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <color=red> 50000 </color>Coin<color=green> 3</color>$
+  m_Text: <color=red> 500 </color>Coin<color=green> 3</color>$
 --- !u!222 &939690326
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2856,7 +2893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1453200567
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2950,7 +2987,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <color=red> 25000 </color>Coin<color=green> 2</color>$
+  m_Text: <color=red> 250 </color>Coin<color=green> 2</color>$
 --- !u!222 &1474257404
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3719,6 +3756,7 @@ GameObject:
   - component: {fileID: 1746594691}
   - component: {fileID: 1746594690}
   - component: {fileID: 1746594689}
+  - component: {fileID: 1746594692}
   m_Layer: 5
   m_Name: 10kCoin
   m_TagString: Untagged
@@ -3840,6 +3878,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1746594687}
   m_CullTransparentMesh: 1
+--- !u!114 &1746594692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746594687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a5f511b0d8142cba0aeb92d0b264c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productId: coin1
+  buttonType: 0
+  consumePurchase: 1
+  onPurchaseComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2021976877}
+        m_TargetAssemblyTypeName: StoreControl, Assembly-CSharp
+        m_MethodName: AddPlayerMoney
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 100
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPurchaseFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  titleText: {fileID: 0}
+  descriptionText: {fileID: 0}
+  priceText: {fileID: 0}
 --- !u!1 &1799498738
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,7 +4386,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <color=red> 10000 </color>Coin<color=green> 1</color>$
+  m_Text: <color=red> 100 </color>Coin<color=green> 1</color>$
 --- !u!222 &1949533984
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4412,6 +4486,7 @@ GameObject:
   - component: {fileID: 2004533113}
   - component: {fileID: 2004533112}
   - component: {fileID: 2004533111}
+  - component: {fileID: 2004533114}
   m_Layer: 5
   m_Name: 50kCoin
   m_TagString: Untagged
@@ -4533,6 +4608,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004533109}
   m_CullTransparentMesh: 1
+--- !u!114 &2004533114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004533109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a5f511b0d8142cba0aeb92d0b264c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  productId: coin3
+  buttonType: 0
+  consumePurchase: 1
+  onPurchaseComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2021976877}
+        m_TargetAssemblyTypeName: StoreControl, Assembly-CSharp
+        m_MethodName: AddPlayerMoney
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 500
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPurchaseFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  titleText: {fileID: 0}
+  descriptionText: {fileID: 0}
+  priceText: {fileID: 0}
 --- !u!1 &2008414407
 GameObject:
   m_ObjectHideFlags: 0
