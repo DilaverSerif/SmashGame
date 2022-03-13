@@ -11,6 +11,8 @@ public class StoreControl : MonoBehaviour {
 
     public Text moneyText;
 
+    [SerializeField] private Transform ButtonContainer;
+
     public int GetPlayerMoney {
         get => PlayerPrefs.GetInt(playerMoneyID);
         set => PlayerPrefs.SetInt(playerMoneyID, value);
@@ -34,8 +36,8 @@ public class StoreControl : MonoBehaviour {
         }
 
         moneyText ??= transform.Find("PlayerCointxt").GetComponent<Text>();
-        UpdateMoneyText(GetPlayerMoney);
-
+        // UpdateMoneyText(GetPlayerMoney);
+        UpdateUI();
     }
 
     void OnApplicationQuit() {
@@ -67,5 +69,20 @@ public class StoreControl : MonoBehaviour {
 
     public void UpdateUI() {
         UpdateMoneyText(GetPlayerMoney);
+        UpdateButtons();
+    }
+    
+    void UpdateButtons() {
+        foreach (var VARIABLE in PlayerMain.instance.UnlockablePlayers) {
+            TextMeshProUGUI text = ButtonContainer.GetChild(VARIABLE.ID).GetComponentInChildren<TextMeshProUGUI>();
+            bool unlocked = VARIABLE.Unlocked || VARIABLE.Price <= 0;
+            text.text = unlocked ? "Unlocked" : VARIABLE.Price.ToString();
+        }
+        
+        foreach (var VARIABLE in PlayerMain.instance.ballUnlockables) {
+            TextMeshProUGUI text = ButtonContainer.GetChild(VARIABLE.ID + PlayerMain.instance.UnlockablePlayers.Length).GetComponentInChildren<TextMeshProUGUI>();
+            bool unlocked = VARIABLE.Unlocked || VARIABLE.Price <= 0;
+            text.text = unlocked ? "Unlocked" : VARIABLE.Price.ToString();
+        }
     }
 }

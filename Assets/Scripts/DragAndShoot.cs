@@ -15,7 +15,7 @@ public class DragAndShoot : MonoBehaviour {
 
     private bool shot = false;
     private bool play;
-    private Transform player;
+    // private Transform player;
 
     [Range(0.1f, 1f)]
     public float Sensitivty = 1;
@@ -24,7 +24,7 @@ public class DragAndShoot : MonoBehaviour {
 
     private void Start()
     {
-        player = FindObjectOfType<PlayerMain>().transform;
+        // player = FindObjectOfType<PlayerMain>().transform;
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         spawnPos = transform.position;
@@ -76,7 +76,7 @@ public class DragAndShoot : MonoBehaviour {
         CameraSystem.ChangeFocus(transform);
         //Silinebilir
         await Task.Delay(3000);
-        CameraSystem.ChangeFocus(player);
+        CameraSystem.ChangeFocus(PlayerMain.instance.transform);
         
         if(!Application.isPlaying) return;
         rb.velocity = Vector3.zero;
